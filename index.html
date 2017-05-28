@@ -5,49 +5,146 @@
          <title>Retura's 360&deg; Photo Gallery</title>
          <meta name="description" content="3D 360&deg; Photo Gallery - A-Frame">
         <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+        
+  <!-- <script src="../dist/gradientsky.min.js"></script> -->
+  <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
   </head>
     
   <body>
 <a-scene>
   <a-assets>
-    <!-- Images. -->
-    <img id="meadow" src="https://ucarecdn.com/d78609b4-e9fc-4816-9928-c0f1f3bd1b7b/">
-    <img id="redwoods" src="https://ucarecdn.com/b5afdeff-9ccf-4d35-8f28-90047c771dfc/">
-    <img id="za" src="https://ucarecdn.com/fdbe2381-1384-4fb7-a6f0-04849b7262c2/">
-    <img id="wood" src="https://ucarecdn.com/9525b638-3303-409b-bd62-963048f40d73/">
-    <img id="succulent" src="https://ucarecdn.com/3bdccd17-1e95-458b-b69f-cdadcb828c3a/">
-    <img id="poppies" src="https://ucarecdn.com/d3989706-eec0-4991-b0c4-f3cae3983175/">
-    <img id="leaf" src="https://ucarecdn.com/a69b7ed2-e5ab-4da8-b2f7-80bda4a799df/">
-    <img id="bamboo" src="https://ucarecdn.com/481b91e4-89f3-44da-bd11-103758068dea/">
-    <img id="ferns" src="https://ucarecdn.com/8e5f76b6-7cf6-4dc5-9106-2634b6eca280/">
+    <!-- Optimized Images. -->
+    <img id="meadowopt" src="https://ucarecdn.com/d78609b4-e9fc-4816-9928-c0f1f3bd1b7b/">
+    <img id="redwoodsopt" src="https://ucarecdn.com/b5afdeff-9ccf-4d35-8f28-90047c771dfc/">
+    <img id="zaopt" src="https://ucarecdn.com/fdbe2381-1384-4fb7-a6f0-04849b7262c2/">
+    <img id="woodopt" src="https://ucarecdn.com/9525b638-3303-409b-bd62-963048f40d73/">
+    <img id="succulentopt" src="https://ucarecdn.com/3bdccd17-1e95-458b-b69f-cdadcb828c3a/">
+    <img id="poppiesopt" src="https://ucarecdn.com/d3989706-eec0-4991-b0c4-f3cae3983175/">
+    <img id="leafopt" src="https://ucarecdn.com/a69b7ed2-e5ab-4da8-b2f7-80bda4a799df/">
+    <img id="bambooopt" src="https://ucarecdn.com/481b91e4-89f3-44da-bd11-103758068dea/">
+    <img id="fernsopt" src="https://ucarecdn.com/8e5f76b6-7cf6-4dc5-9106-2634b6eca280/">
+    
+    <!-- Full Images. -->
+    <img id="meadow" src="https://ucarecdn.com/c608c6c9-6bef-4272-a6c5-3dafc70695c6/">
+    <img id="redwoods" src="https://ucarecdn.com/bccd646b-1e62-48bd-a7b7-13c2ef9b7ec2/">
+    <img id="za" src="https://ucarecdn.com/2c7b5f7c-d893-49fb-9231-c551ba4dc2c7/">
+    <img id="wood" src="https://ucarecdn.com/c83c1903-d433-4b45-848f-87bdf0ee002f/">
+    <img id="succulent" src="https://ucarecdn.com/91602866-7f04-4bc8-a98b-cca1ecc6ee59/">
+    <img id="poppies" src="https://ucarecdn.com/f892d936-faa9-4141-9270-a0502a7cf298/">
+    <img id="leaf" src="https://ucarecdn.com/90f06f6e-e541-4952-8e45-213a2dd763ae/">
+    <img id="bamboo" src="https://ucarecdn.com/01899f58-90e1-4320-8c97-a59b63e921f4/">
+    <img id="ferns" src="https://ucarecdn.com/7b17baaa-243c-4f25-a91b-49fe59a17db5/">  
+      
+    <!-- Image link template to be reused. -->
+    <script id="link" type="text/html">
+      <a-entity class="link"
+        geometry="primitive: sphere; height: 1; width: 1"
+        material="shader: flat; src: #fernsopt"
+        event-set__1="_event: mousedown; scale: 1 1 1"
+        event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+        event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+        event-set__4="_event: mouseleave; scale: 1 1 1"
+        set-image="on: click; target: #image-360; src: ${src}"</a-entity>
+    </script>
   </a-assets>
     
-  <!-- Sky -->
-  <a-sky color="#99ccff"></a-sky>
+    
+    
+     <a-entity id="scene1">
+      <a-sphere id="five" position="0 1.25 -3" radius=".5" src="#woodopt" onclick="nextScene()">
+       <a-animation begin="click" attribute="rotation" to="0 360 0" easing="linear" dur="5000" fill="backwards"></a-animation></a-sphere>
+    
+    
+    
+  <!-- Gradient Sky-->
+  <a-gradient-sky material="shader: gradient; topColor: 102 204 255; bottomColor: 204 153 255;"></a-gradient-sky>
+    
+    <script>
+var ColorUpdates = function() {
+  this.displayOutline = false;
+  this.topColor = [102,204,255];
+  this.bottomColor = [204,153,255];
+  
+};
+window.onload = function() {
+  var updates = new ColorUpdates();
+  var gui = new dat.GUI();
+  var controllerTop = gui.addColor(updates, 'topColor');
+  var controllerBottom = gui.addColor(updates, 'bottomColor');
+  var bottomColor = [204,153,255]
+  var topColor = [102,204,255]
+  controllerTop.onChange(function(value) {
+    topColor = value
+    console.log(value)
+    $("a-gradient-sky").attr("material", "shader: gradient; topColor: "+topColor[0]+" "+topColor[1]+" "+topColor[2]+"; bottomColor:"+bottomColor[0]+" "+bottomColor[1]+" "+bottomColor[2]+"")
+  })
+  controllerBottom.onChange(function(value) {
+    bottomColor = value
+    console.log(value)
+    $("a-gradient-sky").attr("material", "shader: gradient; topColor: "+topColor[0]+" "+topColor[1]+" "+topColor[2]+"; bottomColor:"+bottomColor[0]+" "+bottomColor[1]+" "+bottomColor[2]+"")
+  })
+};
+</script>
+    
+    
+  <!-- 360-degree image. 
+  <a-sky id="image-360" radius="10"></a-sky> -->
+    
+  <!-- Image links. -->
+    <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
+        <a-entity template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
+        <a-entity template="src: #link" data-src="#city" data-thumb="#city-thumb"></a-entity>
+        <a-entity template="src: #link" data-src="#sechelt" data-thumb="#sechelt-thumb"></a-entity>
+      </a-entity>
+    
     
   <!-- Plane -->    
-  <a-plane position="0 0 -4" rotation="-90 0 0" width="16" height="16" color="ffffff"></a-plane>
+  <a-plane position="0 0 -4" rotation="-90 0 0" width="16" height="16" color="000000"></a-plane>
     
   <!-- Camera + Cursor. -->
   <a-camera>
-    <a-cursor id="cursor">
+    <a-cursor id="cursor" color="#6600cc">
       <a-animation begin="click" easing="ease-in" attribute="scale"
                    fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
       <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
                    from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
     </a-cursor>
-  </a-camera>    
+  </a-camera>  
+    
         
-  <!-- Spheres -->  
-    <a-sphere id="two" position="0 1.25 -8" radius=".5" src="#meadow"></a-sphere>
-    <a-sphere id="three" position="3 1.25 -8" radius=".5" src="#redwoods"></a-sphere> 
-    <a-sphere id="one" position="-3 1.25 -8" radius=".5" src="#za"></a-sphere>
-      <a-sphere id="five" position="0 1.25 -3" radius=".5" src="#wood"></a-sphere>
-      <a-sphere id="six" position="3 1.25 -3" radius=".5" src="#succulent"></a-sphere>
-      <a-sphere id="four" position="-3 1.25 -3" radius=".5" src="#poppies"></a-sphere>
-        <a-sphere id="eight" position="0 1.25 .5" radius=".5" src="#leaf"></a-sphere>
-        <a-sphere id="nine" position="3 1.25 .5" radius=".5" src="#bamboo"></a-sphere>
-        <a-sphere id="seven" position="-3 1.25 .5" radius=".5" src="#ferns"></a-sphere>
+  <!-- Spheres 
+    <a-sphere class="link" radius=".5"></a-sphere>
+    
+
+    <a-sphere id="two" position="0 1.25 -8" radius=".5" src="#meadowopt"></a-sphere>
+    <a-sphere id="three" position="3 1.25 -8" radius=".5" src="#redwoodsopt"></a-sphere> 
+    <a-sphere id="one" position="-3 1.25 -8" radius=".5" src="#zaopt"></a-sphere>
+      <a-sphere id="five" position="0 1.25 -3" radius=".5" src="#woodopt"></a-sphere>
+      <a-sphere id="six" position="3 1.25 -3" radius=".5" src="#succulentopt"></a-sphere>
+      <a-sphere id="four" position="-3 1.25 -3" radius=".5" src="#poppiesopt"></a-sphere>
+        <a-sphere id="eight" position="0 1.25 .5" radius=".5" src="#leafopt"></a-sphere>
+        <a-sphere id="nine" position="3 1.25 .5" radius=".5" src="#bambooopt"></a-sphere>
+        <a-sphere id="seven" position="-3 1.25 .5" radius=".5" src="#fernsopt"></a-sphere> -->
+    
+    
+    </a-entity>
+    
+    <a-entity id="scene2" visible="false">
+         <a-sky src="#wood" rotation="0 -130 0"></a-sky>
+         <a-plane visible="false"></a-plane>
+        <a-gradient-sky visible="false"></a-gradient-sky>
+                                                  
+    
+        
+         <script type="text/javascript">
+
+  function nextScene() {
+    document.getElementById('scene1').setAttribute('visible', 'false')
+    document.getElementById('scene2').setAttribute('visible', 'true')
+  }
+  </script>
+    
+    
 
 
     
@@ -58,4 +155,3 @@
 </body>
 
 </html>
-
