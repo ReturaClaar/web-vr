@@ -81,32 +81,6 @@
   <a-entity id="skyy">
       <a-gradient-sky material="shader: gradient; topColor: 102 204 255; bottomColor: 204 153 255;"></a-gradient-sky></a-entity>
     
-    <script>
-var ColorUpdates = function() {
-  this.displayOutline = false;
-  this.topColor = [102,204,255];
-  this.bottomColor = [204,153,255];
-  
-};
-window.onload = function() {
-  var updates = new ColorUpdates();
-  var gui = new dat.GUI();
-  var controllerTop = gui.addColor(updates, 'topColor');
-  var controllerBottom = gui.addColor(updates, 'bottomColor');
-  var bottomColor = [204,153,255]
-  var topColor = [102,204,255]
-  controllerTop.onChange(function(value) {
-    topColor = value
-    console.log(value)
-    $("a-gradient-sky").attr("material", "shader: gradient; topColor: "+topColor[0]+" "+topColor[1]+" "+topColor[2]+"; bottomColor:"+bottomColor[0]+" "+bottomColor[1]+" "+bottomColor[2]+"")
-  })
-  controllerBottom.onChange(function(value) {
-    bottomColor = value
-    console.log(value)
-    $("a-gradient-sky").attr("material", "shader: gradient; topColor: "+topColor[0]+" "+topColor[1]+" "+topColor[2]+"; bottomColor:"+bottomColor[0]+" "+bottomColor[1]+" "+bottomColor[2]+"")
-  })
-};
-</script>
     
     
     
