@@ -20,7 +20,7 @@
     <img id="meadow-opt" src="https://ucarecdn.com/d78609b4-e9fc-4816-9928-c0f1f3bd1b7b/">
     <img id="redwoods-opt" src="https://ucarecdn.com/b5afdeff-9ccf-4d35-8f28-90047c771dfc/">
     <img id="za-opt" src="https://ucarecdn.com/fdbe2381-1384-4fb7-a6f0-04849b7262c2/">
-    <a-panorama id="wood-opt" src="https://ucarecdn.com/9525b638-3303-409b-bd62-963048f40d73/">
+    <img id="wood-opt" src="https://ucarecdn.com/9525b638-3303-409b-bd62-963048f40d73/">
     <img id="succulent-opt" src="https://ucarecdn.com/3bdccd17-1e95-458b-b69f-cdadcb828c3a/">
     <img id="poppies-opt" src="https://ucarecdn.com/d3989706-eec0-4991-b0c4-f3cae3983175/">
     <img id="leaf-opt" src="https://ucarecdn.com/a69b7ed2-e5ab-4da8-b2f7-80bda4a799df/">
@@ -31,23 +31,36 @@
     <img id="meadow" src="https://ucarecdn.com/c608c6c9-6bef-4272-a6c5-3dafc70695c6/">
     <img id="redwoods" src="https://ucarecdn.com/bccd646b-1e62-48bd-a7b7-13c2ef9b7ec2/">
     <img id="za" src="https://ucarecdn.com/2c7b5f7c-d893-49fb-9231-c551ba4dc2c7/">
-    <a-panorama id="wood" src="https://ucarecdn.com/c83c1903-d433-4b45-848f-87bdf0ee002f/">
+    <img id="wood" src="https://ucarecdn.com/c83c1903-d433-4b45-848f-87bdf0ee002f/">
     <img id="succulent" src="https://ucarecdn.com/91602866-7f04-4bc8-a98b-cca1ecc6ee59/">
     <img id="poppies" src="https://ucarecdn.com/f892d936-faa9-4141-9270-a0502a7cf298/">
     <img id="leaf" src="https://ucarecdn.com/90f06f6e-e541-4952-8e45-213a2dd763ae/">
     <img id="bamboo" src="https://ucarecdn.com/01899f58-90e1-4320-8c97-a59b63e921f4/">
     <img id="ferns" src="https://ucarecdn.com/7b17baaa-243c-4f25-a91b-49fe59a17db5/">  
+      
+      
+      <script id="link" type="text/html">
+          <a-entity class="link"
+            geometry="primitive: sphere; radius: .5"
+            material="shader: flat; src: ${opt}"
+            event-set__1="_event: mousedown; scale: 1 1 1"
+            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+            event-set__3="_event: mouseenter; rotation: 0 360 0 dur:5000"
+            event-set__4="_event: mouseleave; scale: 1 1 1"
+            set-image="on: click; target: #skyy; src: ${src}"
+            </a-entity>
+        </script>
  </a-assets>
 
     
     
-    <!-- SCENE 1 PT. 1 -->
+    <!-- SCENE 1 PT. 1
      <a-entity id="scene1">
-      <a-sphere id="five" position="0 1.25 -3" radius=".5" src="#woodopt" onclick="nextScene()">
+     <!-- link.id="five" position="0 1.25 -3" radius=".5" src="#woodopt" onclick="nextScene()">
           
           <a-animation begin="mouseenter" attribute="rotation" to="0 360 0"></a-animation>
           <a-animation begin="mouseleave" attribute="rotation" to="0 360 0"></a-animation>
-         </a-sphere>
+         </a-sphere> -->
         
     
     
@@ -91,35 +104,49 @@ window.onload = function() {
     
     
   <!-- Plane -->    
-  <a-plane position="0 0 -4" rotation="-90 0 0" width="16" height="16" color="000000"></a-plane>
+  <a-plane id="plane" position="0 0 -4" rotation="-90 0 0" width="16" height="16" color="000000"></a-plane>
     
-  <!-- Camera + Cursor. -->
-  <a-camera>
-    <a-cursor id="cursor" color="#6600cc">
-        <a-entity class="link"
-    event-set__1="_event: mouseenter; scale: 1.2 1.2 1"
-    event-set__2="_event: mouseleave; scale: 1 1 1"</a-entity>    
-      <a-animation begin="click" easing="ease-in" attribute="scale"
-                   fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
-      <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
-                   from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation></a-camera>
-    </a-cursor>
-  </a-camera>  
     
-        
-  <!-- Spheres  -->
-    <a-entity class="link">
+    
+
+      
+      
+      
+      
+  <!-- Spheres 
+    <a-entity class="link"> 
     <a-sphere id="two" position="0 1.25 -8" radius=".5" src="#meadow-opt"></a-sphere>
     <a-sphere id="three" position="3 1.25 -8" radius=".5" src="#redwoods-opt"></a-sphere> 
     <a-sphere id="one" position="-3 1.25 -8" radius=".5" src="#za-opt"></a-sphere>
-      <a-sphere id="five" position="0 1.25 -3" radius=".5" src="#wood-opt"></a-sphere>
+      
+      <a-entity id="five">
+      <a-sphere position="0 1.25 -3" radius=".5" src="#wood-opt"></a-sphere></a-entity> 
+      
       <a-sphere id="six" position="3 1.25 -3" radius=".5" src="#succulent-opt"></a-sphere>
       <a-sphere id="four" position="-3 1.25 -3" radius=".5" src="#poppies-opt"></a-sphere>
         <a-sphere id="eight" position="0 1.25 .5" radius=".5" src="#leaf-opt"></a-sphere>
         <a-sphere id="nine" position="3 1.25 .5" radius=".5" src="#bamboo-opt"></a-sphere>
-        <a-sphere id="seven" position="-3 1.25 .5" radius=".5" src="#ferns-opt"></a-sphere></a-entity> 
+        <a-sphere id="seven" position="-3 1.25 .5" radius=".5" src="#ferns-opt"></a-sphere> -->
+      
 
-    
+      
+      
+       <!-- Image links. -->
+      <a-entity id="links">
+        <a-entity template="src: #link" data-src="#meadow" data-opt="#meadow-opt" position="-3 1.25 -8"></a-entity>
+        <a-entity template="src: #link" data-src="#redwoods" data-opt="#redwoods-opt" position="0 1.25 -8"></a-entity>
+        <a-entity template="src: #link" data-src="#za" data-opt="#za-opt" position="3 1.25 -8"></a-entity>
+            <a-entity template="src: #link" data-src="#wood" data-opt="#wood-opt" position="-3 1.25 -3"></a-entity>
+            <a-entity template="src: #link" data-src="#succulent" data-opt="#succulent-opt" position="0 1.25 -3"></a-entity>
+            <a-entity template="src: #link" data-src="#poppies" data-opt="#poppies-opt" position="3 1.25 -3"></a-entity>
+                <a-entity template="src: #link" data-src="#leaf" data-opt="#leaf-opt" position="-3 1.25 .5"></a-entity>
+                <a-entity template="src: #link" data-src="#bamboo" data-opt="#bamboo-opt" position="0 1.25 .5" ></a-entity>
+                <a-entity template="src: #link" data-src="#ferns" data-opt="#ferns-opt" position="3 1.25 .5" ></a-entity>
+      </a-entity>
+      
+      
+
+    1
     
     
     <!-- TEST 
@@ -128,13 +155,13 @@ window.onload = function() {
     </script> -->
     
     
-    <!-- SCENE 1 PT. 2 -->   
+    <!-- SCENE 1 PT. 2    
     </a-entity> 
          
          
          
     
-    <!-- SCENE TWO -->
+    <!-- SCENE TWO 
     <a-entity id="scene2" visible="false">
          <a-sky src="#wood" rotation="0 -130 0"></a-sky>
          <a-plane visible="false"></a-plane>
@@ -145,15 +172,47 @@ window.onload = function() {
     document.getElementById('scene1').setAttribute('visible', 'false')
     document.getElementById('scene2').setAttribute('visible', 'true')
   }
-  </script> 
+  </script> -->
+    
+
+    
+    
+       
+  <!-- Camera + Cursor. 
+  <a-camera>
+    <a-cursor id="cursor" color="#6600cc">
+        <a-entity class="link"
+    event-set__1="_event: mouseenter; scale: 1.2 1.2 1"
+    event-set__2="_event: mouseleave; scale: 0 1 1"</a-entity>    
+      <a-animation begin="click" easing="ease-in" attribute="scale"
+                   fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+      <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                   from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation></a-camera>
+    </a-cursor>
+  </a-camera>  -->
+      
+      
+      
+      
+      <a-entity camera look-controls>
+        <a-camera><a-cursor id="cursor" color="#6600cc"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__1="_event: mouseenter; color: #ff3399"
+          event-set__2="_event: mouseleave; color: #6600cc"
+          fuse="true"
+          raycaster="objects: .link"></a-cursor>
+          </a-camera>
+      </a-entity> 
+    
+    
     
     
 
-
     
     
 
-</a-scene>
+</a-scene> 
       
 </body>
 
