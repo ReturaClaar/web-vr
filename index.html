@@ -20,7 +20,7 @@
     <img id="meadow-opt" src="https://ucarecdn.com/d78609b4-e9fc-4816-9928-c0f1f3bd1b7b/">
     <img id="redwoods-opt" src="https://ucarecdn.com/b5afdeff-9ccf-4d35-8f28-90047c771dfc/">
     <img id="za-opt" src="https://ucarecdn.com/fdbe2381-1384-4fb7-a6f0-04849b7262c2/">
-    <img id="wood-opt" src="https://ucarecdn.com/9525b638-3303-409b-bd62-963048f40d73/">
+    <a-panorama id="wood-opt" src="https://ucarecdn.com/9525b638-3303-409b-bd62-963048f40d73/">
     <img id="succulent-opt" src="https://ucarecdn.com/3bdccd17-1e95-458b-b69f-cdadcb828c3a/">
     <img id="poppies-opt" src="https://ucarecdn.com/d3989706-eec0-4991-b0c4-f3cae3983175/">
     <img id="leaf-opt" src="https://ucarecdn.com/a69b7ed2-e5ab-4da8-b2f7-80bda4a799df/">
@@ -31,47 +31,24 @@
     <img id="meadow" src="https://ucarecdn.com/c608c6c9-6bef-4272-a6c5-3dafc70695c6/">
     <img id="redwoods" src="https://ucarecdn.com/bccd646b-1e62-48bd-a7b7-13c2ef9b7ec2/">
     <img id="za" src="https://ucarecdn.com/2c7b5f7c-d893-49fb-9231-c551ba4dc2c7/">
-    <img id="wood" src="https://ucarecdn.com/c83c1903-d433-4b45-848f-87bdf0ee002f/">
+    <a-panorama id="wood" src="https://ucarecdn.com/c83c1903-d433-4b45-848f-87bdf0ee002f/">
     <img id="succulent" src="https://ucarecdn.com/91602866-7f04-4bc8-a98b-cca1ecc6ee59/">
     <img id="poppies" src="https://ucarecdn.com/f892d936-faa9-4141-9270-a0502a7cf298/">
     <img id="leaf" src="https://ucarecdn.com/90f06f6e-e541-4952-8e45-213a2dd763ae/">
     <img id="bamboo" src="https://ucarecdn.com/01899f58-90e1-4320-8c97-a59b63e921f4/">
     <img id="ferns" src="https://ucarecdn.com/7b17baaa-243c-4f25-a91b-49fe59a17db5/">  
-      
-      
-    <!-- Image link template to be reused. 
-    <script id="link" type="text/html">
-      <a-entity class="link"
-        geometry="primitive: sphere"; radius=".5"     
-        material="shader: flat; src: ${opt)"        
-        event-set__1="_event: mousedown; scale: 1 1 1"
-        event-set__2="_event: mouseup; scale: 1.2 1.2 1"
-        event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
-        event-set__4="_event: mouseleave; scale: 1 1 1"
-        set-image="on: click; target: #skyy; src: ${src}"</a-entity>
-    </script> -->
-  </a-assets>
+ </a-assets>
+
     
     
-    <!-- Pass image sources to the template. 
-    <a-entity id="links" layout="layout: cube; column: 3; plane: xz; margin: 2.5"; position="-3 1.25 -8">
-        <a-entity template="src: #spheres" data-opt="#meadow-opt"></a-entity>
-        <a-entity template="src: #spheres" data-opt="#redwoods-opt"></a-entity>
-        <a-entity template="src: #spheres" data-opt="#za-opt"></a-entity>
-        <a-entity template="src: #spheres" data-opt="#wood-opt"></a-entity>
-        <a-entity template="src: #spheres" data-opt="#succulent-opt"></a-entity>
-        <a-entity template="src: #spheres" data-opt="#poppies-opt"></a-entity>
-        <a-entity template="src: #spheres" data-opt="#leaf-opt"></a-entity>
-        <a-entity template="src: #spheres" data-opt="#bamboo-opt"></a-entity>
-        <a-entity template="src: #spheres" data-opt="#ferns-opt"></a-entity>
-    </a-entity> -->   
-    
-    
-    <!-- FAUX SCENE 1 PT. 1 -->
+    <!-- SCENE 1 PT. 1 -->
      <a-entity id="scene1">
       <a-sphere id="five" position="0 1.25 -3" radius=".5" src="#woodopt" onclick="nextScene()">
-       <a-animation begin="click" attribute="rotation" to="0 360 0" easing="linear" dur="5000" fill="backwards"></a-animation></a-sphere> 
-    
+          
+          <a-animation begin="mouseenter" attribute="rotation" to="0 360 0"></a-animation>
+          <a-animation begin="mouseleave" attribute="rotation" to="0 360 0"></a-animation>
+         </a-sphere>
+        
     
     
     
@@ -81,6 +58,32 @@
   <a-entity id="skyy">
       <a-gradient-sky material="shader: gradient; topColor: 102 204 255; bottomColor: 204 153 255;"></a-gradient-sky></a-entity>
     
+    <script>
+var ColorUpdates = function() {
+  this.displayOutline = false;
+  this.topColor = [102,204,255];
+  this.bottomColor = [204,153,255];
+  
+};
+window.onload = function() {
+  var updates = new ColorUpdates();
+  var gui = new dat.GUI();
+  var controllerTop = gui.addColor(updates, 'topColor');
+  var controllerBottom = gui.addColor(updates, 'bottomColor');
+  var bottomColor = [204,153,255]
+  var topColor = [102,204,255]
+  controllerTop.onChange(function(value) {
+    topColor = value
+    console.log(value)
+    $("a-gradient-sky").attr("material", "shader: gradient; topColor: "+topColor[0]+" "+topColor[1]+" "+topColor[2]+"; bottomColor:"+bottomColor[0]+" "+bottomColor[1]+" "+bottomColor[2]+"")
+  })
+  controllerBottom.onChange(function(value) {
+    bottomColor = value
+    console.log(value)
+    $("a-gradient-sky").attr("material", "shader: gradient; topColor: "+topColor[0]+" "+topColor[1]+" "+topColor[2]+"; bottomColor:"+bottomColor[0]+" "+bottomColor[1]+" "+bottomColor[2]+"")
+  })
+};
+</script>
     
     
     
@@ -125,20 +128,19 @@
     </script> -->
     
     
-    <!-- FAUX SCENE 1 PT. 2 -->   
+    <!-- SCENE 1 PT. 2 -->   
     </a-entity> 
          
          
          
     
-    <!-- FAUX SCENE TWO -->
+    <!-- SCENE TWO -->
     <a-entity id="scene2" visible="false">
          <a-sky src="#wood" rotation="0 -130 0"></a-sky>
          <a-plane visible="false"></a-plane>
         <a-gradient-sky visible="false"></a-gradient-sky>
         
          <script type="text/javascript">
-
   function nextScene() {
     document.getElementById('scene1').setAttribute('visible', 'false')
     document.getElementById('scene2').setAttribute('visible', 'true')
