@@ -6,10 +6,20 @@
          <meta name="description" content="3D 360&deg; Photo Gallery - A-Frame">
          <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
          <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
-         <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
-         <script src="https://unpkg.com/aframe-layout-component@3.x.x/dist/aframe-layout-component.min.js"></script>
-         <script src="https://unpkg.com/aframe-event-set-component@3.x.x/dist/aframe-event-set-component.min.js"></script>
-  </head>
+         <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+         <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
+         <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+         <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
+         <script src="components/set-image.js"></script>
+    </head>
+    
+    
+    
+    
+    
+    
+    
+    
     
   <body>
       
@@ -38,36 +48,24 @@
     <img id="bamboo" src="https://ucarecdn.com/01899f58-90e1-4320-8c97-a59b63e921f4/">
     <img id="ferns" src="https://ucarecdn.com/7b17baaa-243c-4f25-a91b-49fe59a17db5/">  
       
-      
-      <script id="link" type="text/html">
-          <a-entity class="link"
-            geometry="primitive: sphere; radius: .5"
-            material="shader: flat; src: ${opt}"
-            event-set__1="_event: mousedown; scale: 1 1 1"
-            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
-            event-set__3="_event: mouseenter; rotation: 0 360 0 dur:5000"
-            event-set__4="_event: mouseleave; scale: 1 1 1"
-            set-image="on: click; target: #skyy; src: ${src}"
+      <!-- Image link template to be reused. -->
+    <script id="link" type="text/html">
+    <a-entity class="link"
+      geometry="primitive: sphere; radius: .5"
+      material="shader: flat; src: ${opt}"
+      set-image="on: click; target: #skyy; src: ${src}">
+         <a-animation begin="mouseenter" end="mouseleave" attribute="rotation" to="0 360 0" easing="linear" dur="5000" fill="backwards"></a-animation>
             </a-entity>
-        </script>
+  </script>
+
  </a-assets>
 
     
     
-    <!-- SCENE 1 PT. 1
-     <a-entity id="scene1">
-     <!-- link.id="five" position="0 1.25 -3" radius=".5" src="#woodopt" onclick="nextScene()">
-          
-          <a-animation begin="mouseenter" attribute="rotation" to="0 360 0"></a-animation>
-          <a-animation begin="mouseleave" attribute="rotation" to="0 360 0"></a-animation>
-         </a-sphere> -->
-        
     
     
     
-    
-    
-  <!-- Gradient Sky-->
+  <!-- Gradient Sky
   <a-entity id="skyy">
       <a-gradient-sky material="shader: gradient; topColor: 102 204 255; bottomColor: 204 153 255;"></a-gradient-sky></a-entity>
     
@@ -96,7 +94,9 @@ window.onload = function() {
     $("a-gradient-sky").attr("material", "shader: gradient; topColor: "+topColor[0]+" "+topColor[1]+" "+topColor[2]+"; bottomColor:"+bottomColor[0]+" "+bottomColor[1]+" "+bottomColor[2]+"")
   })
 };
-</script>
+</script> -->
+    
+    
     
     
     
@@ -110,23 +110,11 @@ window.onload = function() {
     
 
       
-      
-      
-      
-  <!-- Spheres 
-    <a-entity class="link"> 
-    <a-sphere id="two" position="0 1.25 -8" radius=".5" src="#meadow-opt"></a-sphere>
-    <a-sphere id="three" position="3 1.25 -8" radius=".5" src="#redwoods-opt"></a-sphere> 
-    <a-sphere id="one" position="-3 1.25 -8" radius=".5" src="#za-opt"></a-sphere>
-      
-      <a-entity id="five">
-      <a-sphere position="0 1.25 -3" radius=".5" src="#wood-opt"></a-sphere></a-entity> 
-      
-      <a-sphere id="six" position="3 1.25 -3" radius=".5" src="#succulent-opt"></a-sphere>
-      <a-sphere id="four" position="-3 1.25 -3" radius=".5" src="#poppies-opt"></a-sphere>
-        <a-sphere id="eight" position="0 1.25 .5" radius=".5" src="#leaf-opt"></a-sphere>
-        <a-sphere id="nine" position="3 1.25 .5" radius=".5" src="#bamboo-opt"></a-sphere>
-        <a-sphere id="seven" position="-3 1.25 .5" radius=".5" src="#ferns-opt"></a-sphere> -->
+    
+    
+     <!-- 360-degree image. -->
+      <a-sky id="image-360" radius="10" color="#80bfff"></a-sky>
+
       
 
       
@@ -145,67 +133,17 @@ window.onload = function() {
       </a-entity>
       
       
-
-    1
-    
-    
-    <!-- TEST 
-      <script id="spheres" type="text/nunjucks">
-    <a-sphere class="link" radius=".5"></a-sphere>
-    </script> -->
-    
-    
-    <!-- SCENE 1 PT. 2    
-    </a-entity> 
-         
-         
-         
-    
-    <!-- SCENE TWO 
-    <a-entity id="scene2" visible="false">
-         <a-sky src="#wood" rotation="0 -130 0"></a-sky>
-         <a-plane visible="false"></a-plane>
-        <a-gradient-sky visible="false"></a-gradient-sky>
-        
-         <script type="text/javascript">
-  function nextScene() {
-    document.getElementById('scene1').setAttribute('visible', 'false')
-    document.getElementById('scene2').setAttribute('visible', 'true')
-  }
-  </script> -->
     
 
-    
-    
-       
-  <!-- Camera + Cursor. 
-  <a-camera>
-    <a-cursor id="cursor" color="#6600cc">
-        <a-entity class="link"
-    event-set__1="_event: mouseenter; scale: 1.2 1.2 1"
-    event-set__2="_event: mouseleave; scale: 0 1 1"</a-entity>    
-      <a-animation begin="click" easing="ease-in" attribute="scale"
-                   fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
-      <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
-                   from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation></a-camera>
-    </a-cursor>
-  </a-camera>  -->
       
       
       
-      
+      <!-- Camera + cursor. -->
       <a-entity camera look-controls>
-        <a-camera><a-cursor id="cursor" color="#6600cc"
-          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
-          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
-          event-set__1="_event: mouseenter; color: #ff3399"
-          event-set__2="_event: mouseleave; color: #6600cc"
-          fuse="true"
+        <a-camera><a-cursor id="cursor" color="#6600cc" 
           raycaster="objects: .link"></a-cursor>
           </a-camera>
-      </a-entity> 
-    
-    
+      </a-entity>
     
     
 
